@@ -6,7 +6,6 @@ import { useAppSelector } from "./services/redux/hooks";
 import AppRoutes from "./routes";
 
 function App() {
-  const [count, setCount] = useState(0);
 
   return <AppRoutes />;
 }
