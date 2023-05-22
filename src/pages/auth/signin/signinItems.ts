@@ -15,9 +15,4 @@ export const signinItems: signinItemProps[] = [
     label: "Password",
     name: "password",
   },
-  {
-    type: "checkbox",
-    label: "Remember me",
-    name: "remember",
-  },
 ];

@@ -11,11 +11,14 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { signinItems, signinItemProps } from "./signinItems";
 import { useForm, SubmitHandler } from "react-hook-form";
+import { FormHelperText } from "@mui/material";
+import { useAppDispatch } from "../../../services/redux/hooks";
+import { loggedInHandler } from "../../../services/redux/features/users";
+import { useNavigate } from "react-router-dom";
 
 type Inputs = {
   username: string;
   password: string;
-  remember: string;
 };
 
 function Copyright(props: any) {
@@ -37,22 +40,38 @@ function Copyright(props: any) {
 }
 
 function Signin() {
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
     watch,
+    reset,
     formState: { errors },
   } = useForm<Inputs>();
-  const onSubmit: SubmitHandler<Inputs> = (data) => console.log(data);
+
+  const onSubmit: SubmitHandler<Inputs> = (data) => {
+    dispatch(loggedInHandler(true));
+    navigate("/dashboard");
+  };
 
   return (
-    <Container component="main" maxWidth="xs">
+    <Container
+      component="main"
+      maxWidth="md"
+      style={{
+        height: "100vh",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+      }}
+    >
       <Box
         sx={{
-          marginTop: 8,
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
+          width: { xs: "60vw", md: "25vw" },
         }}
       >
         <Typography component="h1" variant="h5">
@@ -62,36 +81,29 @@ function Signin() {
           component="form"
           onSubmit={handleSubmit(onSubmit)}
           noValidate
-          sx={{ mt: 1 }}
+          sx={{ mt: 1, width: "100%" }}
         >
           {signinItems.map((item: signinItemProps, index: number) => {
             return (
               <React.Fragment key={item.name}>
-                {item.type === "checkbox" && (
-                  <FormControlLabel
-                    control={
-                      <Checkbox
-                        {...register(`${item.name}`)}
-                        value="remember"
-                        color="primary"
-                      />
-                    }
-                    label="Remember me"
-                  />
-                )}
                 {item.type !== "checkbox" && (
                   <TextField
-                    {...register(`${item.name}`, { required: true })}
+                    {...register(`${item.name}`, {
+                      required: "This field must be requierd",
+                    })}
+                    error={errors[item.name as never]}
                     type={item.type}
                     margin="normal"
                     required
                     fullWidth
                     label={item.label}
                     name={item.name}
-                    autoComplete="email"
-                    autoFocus
+                    autoFocus={item.name == "username"}
                   />
                 )}
+                <FormHelperText error>
+                  {errors[item.name as never] && errors[item.name].message}
+                </FormHelperText>
               </React.Fragment>
             );
           })}
@@ -103,21 +115,8 @@ function Signin() {
           >
             Sign In
           </Button>
-          <Grid container>
-            <Grid item xs>
-              <Link href="#" variant="body2">
-                Forgot password?
-              </Link>
-            </Grid>
-            <Grid item>
-              <Link href="#" variant="body2">
-                {"Don't have an account? Sign Up"}
-              </Link>
-            </Grid>
-          </Grid>
         </Box>
       </Box>
-      <Copyright sx={{ mt: 8, mb: 4 }} />
     </Container>
   );
 }
