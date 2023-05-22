@@ -9,6 +9,14 @@ import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
+import { signinItems, signinItemProps } from "./signinItems";
+import { useForm, SubmitHandler } from "react-hook-form";
+
+type Inputs = {
+  username: string;
+  password: string;
+  remember: string;
+};
 
 function Copyright(props: any) {
   return (
@@ -20,7 +28,7 @@ function Copyright(props: any) {
     >
       {"Copyright © "}
       <Link color="inherit" href="https://mui.com/">
-        Your Website
+        AmnPardaz
       </Link>{" "}
       {new Date().getFullYear()}
       {"."}
@@ -29,14 +37,13 @@ function Copyright(props: any) {
 }
 
 function Signin() {
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get("email"),
-      password: data.get("password"),
-    });
-  };
+  const {
+    register,
+    handleSubmit,
+    watch,
+    formState: { errors },
+  } = useForm<Inputs>();
+  const onSubmit: SubmitHandler<Inputs> = (data) => console.log(data);
 
   return (
     <Container component="main" maxWidth="xs">
@@ -51,31 +58,43 @@ function Signin() {
         <Typography component="h1" variant="h5">
           Sign in
         </Typography>
-        <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
-          <TextField
-            margin="normal"
-            required
-            fullWidth
-            id="email"
-            label="Email Address"
-            name="email"
-            autoComplete="email"
-            autoFocus
-          />
-          <TextField
-            margin="normal"
-            required
-            fullWidth
-            name="password"
-            label="Password"
-            type="password"
-            id="password"
-            autoComplete="current-password"
-          />
-          <FormControlLabel
-            control={<Checkbox value="remember" color="primary" />}
-            label="Remember me"
-          />
+        <Box
+          component="form"
+          onSubmit={handleSubmit(onSubmit)}
+          noValidate
+          sx={{ mt: 1 }}
+        >
+          {signinItems.map((item: signinItemProps, index: number) => {
+            return (
+              <React.Fragment key={item.name}>
+                {item.type === "checkbox" && (
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        {...register(`${item.name}`)}
+                        value="remember"
+                        color="primary"
+                      />
+                    }
+                    label="Remember me"
+                  />
+                )}
+                {item.type !== "checkbox" && (
+                  <TextField
+                    {...register(`${item.name}`, { required: true })}
+                    type={item.type}
+                    margin="normal"
+                    required
+                    fullWidth
+                    label={item.label}
+                    name={item.name}
+                    autoComplete="email"
+                    autoFocus
+                  />
+                )}
+              </React.Fragment>
+            );
+          })}
           <Button
             type="submit"
             fullWidth
@@ -103,4 +122,4 @@ function Signin() {
   );
 }
 
-export default React.memo(Signin)
+export default React.memo(Signin);
