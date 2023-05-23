@@ -11,4 +11,7 @@ export type chartDataTypes = {
   series: [];
   category: [];
   direction: string;
+  color: string;
+  legend: string;
+  legendPosition: string;
 };

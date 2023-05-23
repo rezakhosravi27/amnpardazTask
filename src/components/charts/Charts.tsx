@@ -2,39 +2,64 @@ import React from "react";
 import Chart from "react-apexcharts";
 import { chartsTypes } from "./charts.types";
 
-export const Charts = ({ series, category, type, direction }: chartsTypes) => {
+export const Charts = ({ data }: chartsTypes) => {
   const options = {
     chart: {
       height: 400,
     },
-    colors: ["#E91E63"],
+    noData: {
+      text: undefined,
+      align: "center",
+      verticalAlign: "middle",
+      offsetX: 0,
+      offsetY: 0,
+      style: {
+        color: undefined,
+        fontSize: "14px",
+        fontFamily: undefined,
+      },
+    },
+    colors: [
+      data.color,
+      "#2E93fA",
+      "#66DA26",
+      "#546E7A",
+      "#E91E63",
+      "#6d66d3",
+      "#d44646",
+    ],
     legend: {
-      position: "top",
+      show: data.legend,
+      position: data.legendPosition,
       horizontalAlign: "left",
       offsetX: -50,
       fontWeight: "bold",
       showForSingleSeries: true,
     },
-    labels: category,
+    labels: data.category,
     plotOptions: {
       bar: {
         borderRadius: 4,
-        horizontal: direction == "vertical" ? true : false,
+        horizontal: data.direction == "vertical" ? true : false,
       },
     },
     dataLabels: {
       enabled: false,
     },
     xaxis: {
-      categories: category,
+      categories: data.category,
     },
   };
 
   return (
     <Chart
       options={options}
-      series={type === "bar" || type === "line" ? [{ data: series }] : series}
-      type={type}
+      series={
+        data.type === "bar" || data.type === "line"
+          ? [{ data: data.series }]
+          : data.series
+      }
+      type={data.type}
       width={500}
     />
   );

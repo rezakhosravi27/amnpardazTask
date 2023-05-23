@@ -7,19 +7,21 @@ import InputLabel from "@mui/material/InputLabel";
 import { Input } from "@mui/material";
 import InputAdornment from "@mui/material/InputAdornment";
 
-export const LegendOptions = React.memo(() => {
+export const OtherOptions = React.memo(({ register }: any) => {
   const [color, setColor] = React.useState("#2E93fA");
   return (
     <React.Fragment>
-      <Divider sx={{ my: 3 }}>Legend Options</Divider>
+      <Divider sx={{ my: 3 }}>Other Options</Divider>
       <Grid container spacing={3}>
         <Grid item xs={6}>
           <FormControl fullWidth>
             <InputLabel id="demo-simple-select-label">Legend</InputLabel>
             <Select
+              defaultValue={true}
               labelId="demo-simple-select-label"
               id="demo-simple-select"
               label="Legend"
+              {...register("legend", { required: true })}
             >
               <MenuItem value={true}>Show</MenuItem>
               <MenuItem value={false}>Hide</MenuItem>
@@ -32,9 +34,11 @@ export const LegendOptions = React.memo(() => {
               Legend Position
             </InputLabel>
             <Select
+              defaultValue="right"
               labelId="demo-simple-select-label"
               id="demo-simple-select"
               label="Legend Position"
+              {...register("legendPosition")}
             >
               <MenuItem value="up">Up</MenuItem>
               <MenuItem value="down">Down</MenuItem>
@@ -53,6 +57,7 @@ export const LegendOptions = React.memo(() => {
               startAdornment: (
                 <InputAdornment position="start">
                   <Input
+                    {...register("color")}
                     value={color}
                     type="color"
                     sx={{ width: "2vw" }}
