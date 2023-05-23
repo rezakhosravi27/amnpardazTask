@@ -42,13 +42,15 @@ export default function ResponsiveDrawer(props: Props) {
       <Toolbar />
       <Divider />
       <List>
-        {["Create Chart", "Exit"].map((text, index) => (
+        {["Dashboard", "Create Chart", "Exit"].map((text, index) => (
           <Link
             to={
               text == "Create Chart"
-                ? "createChart"
+                ? "/dashboard/createChart"
                 : text == "Exit"
                 ? "/"
+                : text == "Dashboard"
+                ? "/dashboard"
                 : "#"
             }
             key={text}

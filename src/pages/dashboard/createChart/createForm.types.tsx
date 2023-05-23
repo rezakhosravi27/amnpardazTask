@@ -6,8 +6,9 @@ export type InputsTypes = {
 };
 
 export type chartDataTypes = {
-    type: string;
-    series: [];
-    category: [];
-    direction: string;
-}
+  id: string;
+  type: string;
+  series: [];
+  category: [];
+  direction: string;
+};

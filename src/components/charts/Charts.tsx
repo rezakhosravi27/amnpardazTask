@@ -5,8 +5,17 @@ import { chartsTypes } from "./charts.types";
 export const Charts = ({ series, category, type, direction }: chartsTypes) => {
   const options = {
     chart: {
-      id: "basic-bar",
+      height: 400,
     },
+    colors: ["#E91E63"],
+    legend: {
+      position: "top",
+      horizontalAlign: "left",
+      offsetX: -50,
+      fontWeight: "bold",
+      showForSingleSeries: true,
+    },
+    labels: category,
     plotOptions: {
       bar: {
         borderRadius: 4,
@@ -26,7 +35,7 @@ export const Charts = ({ series, category, type, direction }: chartsTypes) => {
       options={options}
       series={type === "bar" || type === "line" ? [{ data: series }] : series}
       type={type}
-      width="700"
+      width={500}
     />
   );
 };
