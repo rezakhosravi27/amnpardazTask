@@ -1,10 +1,12 @@
 import { configureStore } from "@reduxjs/toolkit";
 import usersReducer from "./features/users";
+import chartsReducer from "./features/charts"
 // ...
 
 export const store = configureStore({
   reducer: {
     users: usersReducer,
+    charts: chartsReducer
   },
 });
 

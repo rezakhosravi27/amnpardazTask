@@ -51,9 +51,10 @@ export default function ResponsiveDrawer(props: Props) {
                 ? "/"
                 : "#"
             }
+            key={text}
             style={{ color: "inherit", textDecoration: "none" }}
           >
-            <ListItem key={text} disablePadding>
+            <ListItem disablePadding>
               <ListItemButton>
                 <ListItemIcon>
                   {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
