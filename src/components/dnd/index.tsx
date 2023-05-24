@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { Grid, Paper, Stack, Typography, IconButton } from "@mui/material";
 import Resizable from "../resizable/Resizable";
 import { useAppSelector, useAppDispatch } from "../../services/redux/hooks";
@@ -7,13 +7,13 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import { deleteChartHandler } from "../../services/redux/features/charts";
 import { Link } from "react-router-dom";
+import { MoveElement } from "../moveElement/MoveElement";
 
 export const DND = () => {
   const dispatch = useAppDispatch();
   const chartData = useAppSelector((state) => state.charts.chartData);
   const [grid, setGrid] = useState<any>(chartData);
-
-  console.log("grid data", grid);
+  const elementRef = useRef<HTMLInputElement>(null);
 
   const handleDragStart = (event: any, id: number) => {
     event.dataTransfer.setData("id", id);
@@ -45,7 +45,7 @@ export const DND = () => {
   }, [chartData]);
 
   return (
-    <Grid spacing={3} container>
+    <Grid spacing={3} container sx={{ position: "relative" }}>
       {grid.map((item: any) => (
         <Grid
           item
@@ -57,6 +57,7 @@ export const DND = () => {
           onDrop={(event) => handleDrop(event, item.id)}
           sx={{ minHeight: "200px", cursor: "pointer" }}
         >
+          <MoveElement>
             <Paper sx={{ height: "100%" }}>
               <Stack direction="row" spacing={1} p={1}>
                 <IconButton
@@ -76,6 +77,7 @@ export const DND = () => {
               </Stack>
               <Charts data={item} />
             </Paper>
+          </MoveElement>
         </Grid>
       ))}
     </Grid>
