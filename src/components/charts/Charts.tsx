@@ -2,7 +2,7 @@ import React from "react";
 import Chart from "react-apexcharts";
 import { chartsTypes } from "./charts.types";
 
-export const Charts = ({ data }: chartsTypes) => {
+export const Charts = ({ data }: any) => {
   const options = {
     chart: {
       height: 400,
