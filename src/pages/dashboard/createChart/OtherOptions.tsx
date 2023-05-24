@@ -17,14 +17,14 @@ export const OtherOptions = React.memo(({ register }: any) => {
           <FormControl fullWidth>
             <InputLabel id="demo-simple-select-label">Legend</InputLabel>
             <Select
-              defaultValue={true}
+              defaultValue="show"
               labelId="demo-simple-select-label"
               id="demo-simple-select"
               label="Legend"
               {...register("legend", { required: true })}
             >
-              <MenuItem value={true}>Show</MenuItem>
-              <MenuItem value={false}>Hide</MenuItem>
+              <MenuItem value="show">Show</MenuItem>
+              <MenuItem value="hide">Hide</MenuItem>
             </Select>
           </FormControl>
         </Grid>
@@ -40,8 +40,8 @@ export const OtherOptions = React.memo(({ register }: any) => {
               label="Legend Position"
               {...register("legendPosition")}
             >
-              <MenuItem value="up">Up</MenuItem>
-              <MenuItem value="down">Down</MenuItem>
+              <MenuItem value="top">Up</MenuItem>
+              <MenuItem value="bottom">Down</MenuItem>
               <MenuItem value="right">Right</MenuItem>
               <MenuItem value="left">Left</MenuItem>
             </Select>

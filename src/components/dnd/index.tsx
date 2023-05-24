@@ -1,6 +1,8 @@
 import React, { useState } from "react";
-import { Grid, Paper } from "@mui/material";
+import { Grid, Paper, Stack, Typography } from "@mui/material";
 import Resizable from "../resizable/Resizable";
+import { useAppSelector } from "../../services/redux/hooks";
+import { Charts } from "../charts/Charts";
 
 const items = [
   {
@@ -42,13 +44,10 @@ const items = [
 ];
 
 export const DND = () => {
-  const [grid, setGrid] = useState<any>([
-    { id: 1, value: "A" },
-    { id: 2, value: "B" },
-    { id: 3, value: "C" },
-    { id: 4, value: "D" },
-    { id: 5, value: "E" },
-  ]);
+  const chartData = useAppSelector((state) => state.charts.chartData);
+  const [grid, setGrid] = useState<any>(chartData);
+
+  console.log("grid data", grid);
 
   const handleDragStart = (event: any, id: number) => {
     event.dataTransfer.setData("id", id);
@@ -60,11 +59,9 @@ export const DND = () => {
 
   const handleDrop = (event: any, id: number) => {
     const dragId = event.dataTransfer.getData("id");
-    const draggedItem = grid.find((item: any) => item.id === Number(dragId));
-    const remainingItems = grid.filter(
-      (item: any) => item.id !== Number(dragId)
-    );
-    const dropIndex = grid.findIndex((item: any) => item.id === Number(id));
+    const draggedItem = grid.find((item: any) => item.id == dragId);
+    const remainingItems = grid.filter((item: any) => item.id !== dragId);
+    const dropIndex = grid.findIndex((item: any) => item.id == id);
     const updatedGrid = [
       ...remainingItems.slice(0, dropIndex),
       draggedItem,
@@ -86,9 +83,9 @@ export const DND = () => {
           onDrop={(event) => handleDrop(event, item.id)}
           sx={{ minHeight: "200px", cursor: "pointer" }}
         >
-          <Resizable>
-            <Paper sx={{ height: "100%" }}>{item.value}</Paper>
-          </Resizable>
+          <Paper sx={{ height: "100%" }}>
+            <Charts data={item} />
+          </Paper>
         </Grid>
       ))}
     </Grid>

@@ -22,8 +22,16 @@ export const CreateForm = () => {
   } = useForm<InputsTypes>();
 
   const onSubmit: SubmitHandler<InputsTypes> = (data) => {
-    const { type, series, axis, direction, color, legend, legendPosition } =
-      data;
+    const {
+      type,
+      series,
+      axis,
+      direction,
+      color,
+      legend,
+      legendPosition,
+      title,
+    } = data;
     const chartCategory = db.map((items: any, index: number) => {
       return items[axis];
     });
@@ -39,6 +47,7 @@ export const CreateForm = () => {
       color,
       legend,
       legendPosition,
+      title,
     };
     dispatch(chartDataHandler(chartData));
   };

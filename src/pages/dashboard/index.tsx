@@ -10,9 +10,6 @@ const Dashboard = () => {
   return (
     <ResponsiveDrawer>
       <Grid container>
-        {chartData.map((data: any) => {
-          return <Charts data={data} />;
-        })}
         <DND />
       </Grid>
     </ResponsiveDrawer>

@@ -17,6 +17,15 @@ export const GeneralOptions = ({ errors, register }: any) => {
       <Divider sx={{ my: 3 }}>General Options</Divider>
       <Grid container spacing={2}>
         <Grid item xs={6}>
+          <TextField
+            error={errors["title"] && true}
+            fullWidth
+            type="text"
+            label="Title"
+            {...register("title", { required: true })}
+          />
+        </Grid>
+        <Grid item xs={6}>
           <FormControl fullWidth>
             <InputLabel
               id="demo-simple-select-label"

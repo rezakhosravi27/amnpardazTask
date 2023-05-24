@@ -4,8 +4,23 @@ import { chartsTypes } from "./charts.types";
 
 export const Charts = ({ data }: any) => {
   const options = {
-    chart: {
-      height: 400,
+    chart: {},
+    theme: {
+      mode: "dark",
+    },
+    title: {
+      text: data.title,
+      align: "left",
+      margin: 10,
+      offsetX: 0,
+      offsetY: 0,
+      floating: false,
+      style: {
+        fontSize: "25px",
+        fontWeight: "bold",
+        fontFamily: undefined,
+        color: "#fff",
+      },
     },
     noData: {
       text: undefined,
@@ -29,10 +44,9 @@ export const Charts = ({ data }: any) => {
       "#d44646",
     ],
     legend: {
-      show: data.legend,
+      show: data.legend == "show" ? true : false,
       position: data.legendPosition,
       horizontalAlign: "left",
-      offsetX: -50,
       fontWeight: "bold",
       showForSingleSeries: true,
     },
@@ -60,7 +74,7 @@ export const Charts = ({ data }: any) => {
           : data.series
       }
       type={data.type}
-      width={500}
+      height={450}
     />
   );
 };
