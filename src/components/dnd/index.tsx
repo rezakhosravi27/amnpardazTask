@@ -1,49 +1,15 @@
 import React, { useState } from "react";
-import { Grid, Paper, Stack, Typography } from "@mui/material";
+import { Grid, Paper, Stack, Typography, IconButton } from "@mui/material";
 import Resizable from "../resizable/Resizable";
-import { useAppSelector } from "../../services/redux/hooks";
+import { useAppSelector, useAppDispatch } from "../../services/redux/hooks";
 import { Charts } from "../charts/Charts";
-
-const items = [
-  {
-    id: "item-1",
-    content: "Item 1",
-  },
-  {
-    id: "item-2",
-    content: "Item 2",
-  },
-  {
-    id: "item-3",
-    content: "Item 3",
-  },
-  {
-    id: "item-3",
-    content: "Item 3",
-  },
-  {
-    id: "item-3",
-    content: "Item 3",
-  },
-  {
-    id: "item-3",
-    content: "Item 3",
-  },
-  {
-    id: "item-3",
-    content: "Item 3",
-  },
-  {
-    id: "item-3",
-    content: "Item 3",
-  },
-  {
-    id: "item-3",
-    content: "Item 3",
-  },
-];
+import DeleteIcon from "@mui/icons-material/Delete";
+import EditIcon from "@mui/icons-material/Edit";
+import { deleteChartHandler } from "../../services/redux/features/charts";
+import { Link } from "react-router-dom";
 
 export const DND = () => {
+  const dispatch = useAppDispatch();
   const chartData = useAppSelector((state) => state.charts.chartData);
   const [grid, setGrid] = useState<any>(chartData);
 
@@ -70,6 +36,14 @@ export const DND = () => {
     setGrid(updatedGrid);
   };
 
+  const deleteHandler = (id: any) => {
+    dispatch(deleteChartHandler(id));
+  };
+
+  React.useEffect(() => {
+    setGrid(chartData);
+  }, [chartData]);
+
   return (
     <Grid spacing={3} container>
       {grid.map((item: any) => (
@@ -83,9 +57,25 @@ export const DND = () => {
           onDrop={(event) => handleDrop(event, item.id)}
           sx={{ minHeight: "200px", cursor: "pointer" }}
         >
-          <Paper sx={{ height: "100%" }}>
-            <Charts data={item} />
-          </Paper>
+            <Paper sx={{ height: "100%" }}>
+              <Stack direction="row" spacing={1} p={1}>
+                <IconButton
+                  color="error"
+                  onClick={() => deleteHandler(item.id)}
+                >
+                  <DeleteIcon />
+                </IconButton>
+                <IconButton color="info">
+                  <Link
+                    to={`/dashboard/editChart/${item.id}`}
+                    style={{ color: "inherit" }}
+                  >
+                    <EditIcon />
+                  </Link>
+                </IconButton>
+              </Stack>
+              <Charts data={item} />
+            </Paper>
         </Grid>
       ))}
     </Grid>

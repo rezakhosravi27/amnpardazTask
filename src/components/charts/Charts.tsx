@@ -50,7 +50,7 @@ export const Charts = ({ data }: any) => {
       fontWeight: "bold",
       showForSingleSeries: true,
     },
-    labels: data.category,
+    labels: data.chartCategory,
     plotOptions: {
       bar: {
         borderRadius: 4,
@@ -61,7 +61,7 @@ export const Charts = ({ data }: any) => {
       enabled: false,
     },
     xaxis: {
-      categories: data.category,
+      categories: data.chartCategory,
     },
   };
 
@@ -70,8 +70,8 @@ export const Charts = ({ data }: any) => {
       options={options}
       series={
         data.type === "bar" || data.type === "line"
-          ? [{ data: data.series }]
-          : data.series
+          ? [{ data: data.chartSeries }]
+          : data.chartSeries
       }
       type={data.type}
       height={450}

@@ -8,9 +8,18 @@ import Select, { SelectChangeEvent } from "@mui/material/Select";
 import Grid from "@mui/material/Grid";
 import { db } from "../../../data/data";
 
-export const GeneralOptions = ({ errors, register }: any) => {
+export const GeneralOptions = ({ errors, register, findChart }: any) => {
   const [type, setType] = React.useState("");
   const axis = [...new Set(db.flatMap((obj: any) => Object.keys(obj)))];
+  const series = [
+    ...new Set(
+      db.flatMap((obj: any) =>
+        Object.entries(obj)
+          .filter(([key, value]) => typeof value === "number" && key !== "id")
+          .map(([key, value]) => key)
+      )
+    ),
+  ];
 
   return (
     <>
@@ -18,6 +27,7 @@ export const GeneralOptions = ({ errors, register }: any) => {
       <Grid container spacing={2}>
         <Grid item xs={6}>
           <TextField
+            defaultValue={findChart?.title}
             error={errors["title"] && true}
             fullWidth
             type="text"
@@ -34,6 +44,7 @@ export const GeneralOptions = ({ errors, register }: any) => {
               Type
             </InputLabel>
             <Select
+              defaultValue={findChart?.type}
               error={errors["type"] && true}
               labelId="demo-simple-select-label"
               id="demo-simple-select"
@@ -60,6 +71,7 @@ export const GeneralOptions = ({ errors, register }: any) => {
               Axis
             </InputLabel>
             <Select
+              defaultValue={findChart?.axis}
               error={errors["axis"] && true}
               labelId="demo-simple-select-label"
               id="demo-simple-select"
@@ -87,6 +99,7 @@ export const GeneralOptions = ({ errors, register }: any) => {
               Series
             </InputLabel>
             <Select
+              defaultValue={findChart?.series}
               labelId="demo-simple-select-label"
               id="demo-simple-select"
               label="Series"
@@ -95,7 +108,7 @@ export const GeneralOptions = ({ errors, register }: any) => {
               })}
               error={errors["series"] && true}
             >
-              {axis.map((keys: any) =>
+              {series.map((keys: any) =>
                 keys == "id" ? null : (
                   <MenuItem key={keys} value={keys}>
                     {keys}
@@ -115,6 +128,7 @@ export const GeneralOptions = ({ errors, register }: any) => {
                 Direction
               </InputLabel>
               <Select
+                defaultValue={findChart?.direction}
                 labelId="demo-simple-select-label"
                 id="demo-simple-select"
                 label="Direction"

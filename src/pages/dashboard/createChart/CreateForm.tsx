@@ -1,5 +1,5 @@
 import React from "react";
-import { Box, Container, Divider, Typography } from "@mui/material";
+import { Box, Container, Divider, Typography, Paper } from "@mui/material";
 import Grid from "@mui/material/Grid";
 import Button from "@mui/material/Button";
 import { useForm, SubmitHandler } from "react-hook-form";
@@ -10,9 +10,15 @@ import { InputsTypes, chartDataTypes } from "./createForm.types";
 import { v4 as uuid } from "uuid";
 import { OtherOptions } from "./OtherOptions";
 import { GeneralOptions } from "./GeneralOptions";
+import { useParams } from "react-router-dom";
+import { editChartHandler } from "../../../services/redux/features/charts";
 
 export const CreateForm = () => {
   const dispatch = useAppDispatch();
+  const params = useParams();
+  const chartData = useAppSelector((state) => state.charts.chartData);
+  const findChart = chartData.find((chart: any) => chart.id == params.id);
+  console.log("params", findChart);
   const {
     register,
     handleSubmit,
@@ -41,31 +47,49 @@ export const CreateForm = () => {
     const chartData: chartDataTypes = {
       id: uuid(),
       type,
-      series: chartSeries,
-      category: chartCategory,
+      chartSeries,
+      chartCategory,
       direction,
       color,
       legend,
       legendPosition,
       title,
+      axis: data.axis,
+      series: data.series,
     };
-    dispatch(chartDataHandler(chartData));
+    console.log(chartData);
+    if (findChart) {
+      dispatch(editChartHandler(chartData));
+    } else {
+      dispatch(chartDataHandler(chartData));
+    }
   };
 
   return (
     <Container maxWidth="md">
-      <Typography variant="h4" color="GrayText">
-        Create Chart
-      </Typography>
-      <Box component="form" noValidate mt={2} onSubmit={handleSubmit(onSubmit)}>
-        <GeneralOptions register={register} errors={errors} />
-        <OtherOptions register={register} />
-        <Grid container justifyContent="flex-end" mt={2}>
-          <Button variant="contained" type="submit">
-            save
-          </Button>
-        </Grid>
-      </Box>
+      <Paper sx={{ p: 3 }}>
+        <Typography variant="h4" color="GrayText">
+          Create Chart
+        </Typography>
+        <Box
+          component="form"
+          noValidate
+          mt={2}
+          onSubmit={handleSubmit(onSubmit)}
+        >
+          <GeneralOptions
+            register={register}
+            errors={errors}
+            findChart={findChart}
+          />
+          <OtherOptions register={register} />
+          <Grid container justifyContent="flex-end" mt={2}>
+            <Button variant="contained" type="submit">
+              save
+            </Button>
+          </Grid>
+        </Box>
+      </Paper>
     </Container>
   );
 };

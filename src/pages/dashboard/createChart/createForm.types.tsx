@@ -12,11 +12,13 @@ export type InputsTypes = {
 export type chartDataTypes = {
   id: string;
   type: string;
-  series: [];
-  category: [];
+  chartSeries: [];
+  chartCategory: [];
   direction: string;
   color: string;
   legend: string;
   legendPosition: string;
   title: string;
+  series: string;
+  axis: string
 };

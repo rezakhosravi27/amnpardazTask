@@ -8,6 +8,7 @@ export const DashboardRoutes = () => {
     <Routes>
       <Route index element={<Dashboard />} />
       <Route path="createChart" element={<CreateChart />} />
+      <Route path="editChart/:id" element={<CreateChart />} />
     </Routes>
   );
 };
