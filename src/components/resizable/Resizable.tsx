@@ -38,7 +38,7 @@ function Resizable({ children }: resizableProps) {
         width: `${width}%`,
         height: `${height}%`,
         maxWidth: `${width}%`,
-        backgroundColor: "red",
+        backgroundColor: "blue",
       }}
       onMouseDown={handleMouseDown}
       onMouseUp={handleMouseUp}

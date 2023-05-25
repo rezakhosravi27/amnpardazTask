@@ -74,7 +74,8 @@ export const Charts = ({ data }: any) => {
           : data.chartSeries
       }
       type={data.type}
-      height={450}
+      height="100%"
+      width="100%"
     />
   );
 };

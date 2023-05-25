@@ -7,6 +7,8 @@ import "./index.css";
 import { store } from "./services/redux/store";
 import CssBaseline from "@mui/material/CssBaseline";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
+import "react-grid-layout/css/styles.css";
+import "react-resizable/css/styles.css";
 import "@fontsource/roboto/300.css";
 import "@fontsource/roboto/400.css";
 import "@fontsource/roboto/500.css";

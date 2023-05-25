@@ -17,7 +17,7 @@ export const OtherOptions = React.memo(({ register }: any) => {
           <FormControl fullWidth>
             <InputLabel id="demo-simple-select-label">Legend</InputLabel>
             <Select
-              defaultValue="show"
+              defaultValue="hide"
               labelId="demo-simple-select-label"
               id="demo-simple-select"
               label="Legend"
