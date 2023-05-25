@@ -12,6 +12,7 @@ import { OtherOptions } from "./OtherOptions";
 import { GeneralOptions } from "./GeneralOptions";
 import { useParams } from "react-router-dom";
 import { editChartHandler } from "../../../services/redux/features/charts";
+import { toast } from "react-toastify";
 
 export const CreateForm = () => {
   const dispatch = useAppDispatch();
@@ -38,12 +39,15 @@ export const CreateForm = () => {
       legendPosition,
       title,
     } = data;
+
     const chartCategory = db.map((items: any, index: number) => {
       return items[axis];
     });
+
     const chartSeries = db.map((items: any, index: number) => {
       return items[series];
     });
+
     const chartData: chartDataTypes = {
       id: uuid(),
       type,
@@ -57,11 +61,15 @@ export const CreateForm = () => {
       axis: data.axis,
       series: data.series,
     };
-    console.log(chartData);
+
+    // if findChart exists means edit page render and dispatch is edit data
     if (findChart) {
       dispatch(editChartHandler(chartData));
+      toast.success("Chart update");
     } else {
       dispatch(chartDataHandler(chartData));
+      toast.success("Chart create");
+      reset();
     }
   };
 

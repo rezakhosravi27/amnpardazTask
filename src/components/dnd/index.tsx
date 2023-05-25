@@ -4,7 +4,6 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import { Link } from "react-router-dom";
 import { Charts } from "../charts/Charts";
-import _ from "lodash";
 import { useAppSelector, useAppDispatch } from "../../services/redux/hooks";
 import { deleteChartHandler } from "../../services/redux/features/charts";
 import { Responsive, WidthProvider } from "react-grid-layout";
