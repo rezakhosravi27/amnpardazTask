@@ -1,5 +1,4 @@
-import React, { useState, useRef } from "react";
-import { Grid, Paper, IconButton, Stack } from "@mui/material";
+import { Grid, Paper, Stack } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import { Link } from "react-router-dom";
@@ -59,7 +58,7 @@ export const DND = (props: any) => {
   };
   const generateLayout = () => {
     const p = chartData || []; //props;
-    return chartData.map((item, i) => {
+    return p.map((item, i) => {
       return {
         x: i + (1 % 1) == 0 ? 0 : 6,
         y: 0,
@@ -88,36 +87,6 @@ export const DND = (props: any) => {
       >
         {generateDOM()}
       </ResponsiveGridLayout>
-      {/* {grid.map((item: any) => (
-        <Grid
-          item
-          xs={6}
-          key={item.id}
-          sx={{ minHeight: "200px", cursor: "pointer" }}
-        >
-          <MoveElement>
-            <Paper sx={{ height: "100%" }}>
-              <Stack direction="row" spacing={1} p={1}>
-                <IconButton
-                  color="error"
-                  onClick={() => deleteHandler(item.id)}
-                >
-                  <DeleteIcon />
-                </IconButton>
-                <IconButton color="info">
-                  <Link
-                    to={`/dashboard/editChart/${item.id}`}
-                    style={{ color: "inherit" }}
-                  >
-                    <EditIcon />
-                  </Link>
-                </IconButton>
-              </Stack>
-              <Charts data={item} />
-            </Paper>
-          </MoveElement>
-        </Grid>
-      ))} */}
     </Grid>
   );
 };

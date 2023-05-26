@@ -7,19 +7,11 @@ import FormControl from "@mui/material/FormControl";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
 import Grid from "@mui/material/Grid";
 import { db } from "../../../data/data";
+import { generateData } from "./generateData";
 
 export const GeneralOptions = ({ errors, register, findChart }: any) => {
   const [type, setType] = React.useState("");
-  const axis = [...new Set(db.flatMap((obj: any) => Object.keys(obj)))];
-  const series = [
-    ...new Set(
-      db.flatMap((obj: any) =>
-        Object.entries(obj)
-          .filter(([key, value]) => typeof value === "number" && key !== "id")
-          .map(([key, value]) => key)
-      )
-    ),
-  ];
+  const { axis, series } = generateData(db);
 
   return (
     <>

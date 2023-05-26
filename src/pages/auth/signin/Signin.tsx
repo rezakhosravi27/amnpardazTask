@@ -1,15 +1,9 @@
 import * as React from "react";
-import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import Checkbox from "@mui/material/Checkbox";
-import Link from "@mui/material/Link";
-import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
-import { signinItems, signinItemProps } from "./signinItems";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { FormHelperText } from "@mui/material";
 import { useAppDispatch } from "../../../services/redux/hooks";
@@ -27,12 +21,10 @@ function Signin() {
   const {
     register,
     handleSubmit,
-    watch,
-    reset,
     formState: { errors },
   } = useForm<Inputs>();
 
-  const onSubmit: SubmitHandler<Inputs> = (data) => {
+  const onSubmit: SubmitHandler<Inputs> = () => {
     dispatch(loggedInHandler(true));
     navigate("/dashboard");
   };
@@ -65,30 +57,37 @@ function Signin() {
           noValidate
           sx={{ mt: 1, width: "100%" }}
         >
-          {signinItems.map((item: signinItemProps, index: number) => {
-            return (
-              <React.Fragment key={item.name}>
-                {item.type !== "checkbox" && (
-                  <TextField
-                    {...register(`${item.name}`, {
-                      required: "This field must be requierd",
-                    })}
-                    error={errors[item.name as never]}
-                    type={item.type}
-                    margin="normal"
-                    required
-                    fullWidth
-                    label={item.label}
-                    name={item.name}
-                    autoFocus={item.name == "username"}
-                  />
-                )}
-                <FormHelperText error>
-                  {errors[item.name as never] && errors[item.name].message}
-                </FormHelperText>
-              </React.Fragment>
-            );
-          })}
+          <React.Fragment>
+            <TextField
+              {...register("username", {
+                required: "This field must be requierd",
+              })}
+              error={errors["username"] && true}
+              type="text"
+              margin="normal"
+              required
+              fullWidth
+              label="username"
+              autoFocus
+            />
+            <FormHelperText error>
+              {errors["username"] && errors["username"].message}
+            </FormHelperText>
+            <TextField
+              {...register("password", {
+                required: "This field must be requierd",
+              })}
+              error={errors["password"] && true}
+              type="password"
+              margin="normal"
+              required
+              fullWidth
+              label="password"
+            />
+            <FormHelperText error>
+              {errors["password"] && errors["password"].message}
+            </FormHelperText>
+          </React.Fragment>
           <Button
             type="submit"
             fullWidth

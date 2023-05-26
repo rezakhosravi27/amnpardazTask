@@ -1,8 +1,8 @@
-import React from "react";
-import ResponsiveDrawer from "../../../components/ResponsiveDrawer";
+import ResponsiveDrawer from "../../../components/responsiveDrawer/ResponsiveDrawer";
+import { Outlet } from "react-router-dom";
 import { CreateForm } from "./CreateForm";
 
-const index = () => {
+const CreateChart = () => {
   return (
     <ResponsiveDrawer>
       <CreateForm />
@@ -10,4 +10,4 @@ const index = () => {
   );
 };
 
-export default index;
+export default CreateChart;

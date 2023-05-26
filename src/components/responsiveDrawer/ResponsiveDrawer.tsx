@@ -7,7 +7,6 @@ import Drawer from "@mui/material/Drawer";
 import IconButton from "@mui/material/IconButton";
 import InboxIcon from "@mui/icons-material/MoveToInbox";
 import List from "@mui/material/List";
-import Grid from "@mui/material/Grid";
 import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
@@ -17,6 +16,8 @@ import MenuIcon from "@mui/icons-material/Menu";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import { Link } from "react-router-dom";
+import { useAppDispatch } from "../../services/redux/hooks";
+import { loggedInHandler } from "../../services/redux/features/users";
 
 const drawerWidth = 240;
 
@@ -30,11 +31,18 @@ interface Props {
 }
 
 export default function ResponsiveDrawer(props: Props) {
+  const dispatch = useAppDispatch();
   const { window, children } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
+  };
+
+  const handleExit = (name: string) => {
+    if (name == "Exit") {
+      dispatch(loggedInHandler(false));
+    }
   };
 
   const drawer = (
@@ -56,7 +64,7 @@ export default function ResponsiveDrawer(props: Props) {
             key={text}
             style={{ color: "inherit", textDecoration: "none" }}
           >
-            <ListItem disablePadding>
+            <ListItem disablePadding onClick={() => handleExit(text)}>
               <ListItemButton>
                 <ListItemIcon>
                   {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}

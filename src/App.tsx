@@ -1,14 +1,48 @@
-import { useAppSelector } from "./services/redux/hooks";
-import AppRoutes from "./routes";
-import Signin from "./pages/auth/signin/Signin";
+import "./App.css";
 import { AppProvider } from "./providers/AppProvider";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { Auth } from "./pages/auth";
+import Signin from "./pages/auth/signin/Signin";
+import Dashboard from "./pages/dashboard";
+import Signup from "./pages/auth/signup/Signup";
+import CreateChart from "./pages/dashboard/createChart";
+import { ProtectedRoutes } from "./pages/protectedRoutes/ProtectedRoutes";
 
 function App() {
-  const isLoggedIn = useAppSelector((state) => state.users.isLoggedIn);
-  if (!isLoggedIn) return <Signin />;
   return (
     <AppProvider>
-      <AppRoutes />
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Auth />}>
+            <Route index element={<Signin />} />
+            <Route path="signup" element={<Signup />} />
+            <Route
+              path="dashboard"
+              element={
+                <ProtectedRoutes>
+                  <Dashboard />
+                </ProtectedRoutes>
+              }
+            />
+            <Route
+              path="dashboard/createChart"
+              element={
+                <ProtectedRoutes>
+                  <CreateChart />
+                </ProtectedRoutes>
+              }
+            />
+            <Route
+              path="dashboard/editChart/:id"
+              element={
+                <ProtectedRoutes>
+                  <CreateChart />
+                </ProtectedRoutes>
+              }
+            />
+          </Route>
+        </Routes>
+      </BrowserRouter>
     </AppProvider>
   );
 }

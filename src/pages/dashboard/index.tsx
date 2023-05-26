@@ -1,12 +1,8 @@
-import React from "react";
-import ResponsiveDrawer from "../../components/ResponsiveDrawer";
-import { useAppSelector } from "../../services/redux/hooks";
+import ResponsiveDrawer from "../../components/responsiveDrawer/ResponsiveDrawer";
 import Grid from "@mui/material/Grid";
-import { Charts } from "../../components/charts/Charts";
-import { DND } from "../../components/dnd";
+import { DND } from "../../components/DND/DND";
 
 const Dashboard = () => {
-  const chartData = useAppSelector((state) => state.charts.chartData);
   return (
     <ResponsiveDrawer>
       <Grid container>
