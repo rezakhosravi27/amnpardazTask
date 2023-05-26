@@ -83,6 +83,7 @@ function Signin() {
               required
               fullWidth
               label="password"
+              inputProps={{ "data-testid": "password" }}
             />
             <FormHelperText error>
               {errors["password"] && errors["password"].message}
