@@ -18,7 +18,6 @@ export const CreateForm = () => {
   const params = useParams();
   const chartData = useAppSelector((state) => state.charts.chartData);
   const findChart = chartData.find((chart: any) => chart.id == params.id);
-  console.log("params", findChart);
   const {
     register,
     handleSubmit,
@@ -89,7 +88,7 @@ export const CreateForm = () => {
             errors={errors}
             findChart={findChart}
           />
-          <OtherOptions register={register} />
+          <OtherOptions register={register} findChart={findChart} />
           <Grid container justifyContent="flex-end" mt={2}>
             <Button variant="contained" type="submit">
               save

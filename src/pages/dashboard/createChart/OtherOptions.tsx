@@ -7,7 +7,7 @@ import InputLabel from "@mui/material/InputLabel";
 import { Input } from "@mui/material";
 import InputAdornment from "@mui/material/InputAdornment";
 
-export const OtherOptions = React.memo(({ register }: any) => {
+export const OtherOptions = React.memo(({ register, findChart }: any) => {
   const [color, setColor] = React.useState("#2E93fA");
   return (
     <React.Fragment>
@@ -17,7 +17,7 @@ export const OtherOptions = React.memo(({ register }: any) => {
           <FormControl fullWidth>
             <InputLabel id="demo-simple-select-label">Legend</InputLabel>
             <Select
-              defaultValue="hide"
+              defaultValue={findChart.legend}
               labelId="demo-simple-select-label"
               id="demo-simple-select"
               label="Legend"
@@ -34,7 +34,7 @@ export const OtherOptions = React.memo(({ register }: any) => {
               Legend Position
             </InputLabel>
             <Select
-              defaultValue="right"
+              defaultValue={findChart.legendPosition}
               labelId="demo-simple-select-label"
               id="demo-simple-select"
               label="Legend Position"
