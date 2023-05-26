@@ -1,9 +1,7 @@
-import React from 'react'
+import React from "react";
 
 export const Signup = () => {
-  return (
-    <div>Signup</div>
-  )
-}
+  return <div>Signup</div>;
+};
 
-export default React.memo(Signup)
+export default React.memo(Signup);
