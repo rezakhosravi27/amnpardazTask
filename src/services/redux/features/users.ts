@@ -5,11 +5,13 @@ import type { RootState } from "../store";
 // Define a type for the slice state
 interface UserState {
   isLoggedIn: boolean;
+  userData: { username: string; password: string };
 }
 
 // Define the initial state using that type
 const initialState: UserState = {
   isLoggedIn: false,
+  userData: { username: "", password: "" },
 };
 
 export const usersSlice = createSlice({
@@ -17,15 +19,22 @@ export const usersSlice = createSlice({
   // `createSlice` will infer the state type from the `initialState` argument
   initialState,
   reducers: {
-    loggedInHandler: (state, action: PayloadAction<boolean>) => {
+    loggedInHandler: (state: UserState, action: PayloadAction<boolean>) => {
       state.isLoggedIn = action.payload;
+    },
+    userDataHandler: (
+      state: UserState,
+      action: PayloadAction<{ username: string; password: string }>
+    ) => {
+      state.userData = action.payload;
     },
   },
 });
 
-export const { loggedInHandler } = usersSlice.actions;
+export const { loggedInHandler, userDataHandler } = usersSlice.actions;
 
 // Other code such as selectors can use the imported `RootState` type
 export const selectIsLoggedIn = (state: RootState) => state.users.isLoggedIn;
+export const selectUserData = (state: RootState) => state.users.userData;
 
 export default usersSlice.reducer;

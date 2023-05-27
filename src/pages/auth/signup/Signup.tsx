@@ -7,8 +7,10 @@ import Container from "@mui/material/Container";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { FormHelperText } from "@mui/material";
 import { useAppDispatch } from "../../../services/redux/hooks";
-import { loggedInHandler } from "../../../services/redux/features/users";
+import { userDataHandler } from "../../../services/redux/features/users";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import { useAppSelector } from "../../../services/redux/hooks";
 
 type Inputs = {
   username: string;
@@ -16,6 +18,7 @@ type Inputs = {
 };
 
 function Signup() {
+  const userData = useAppSelector((state) => state.users.userData);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const {
@@ -24,10 +27,18 @@ function Signup() {
     formState: { errors },
   } = useForm<Inputs>();
 
-  const onSubmit: SubmitHandler<Inputs> = () => {
-    dispatch(loggedInHandler(true));
-    navigate("/dashboard");
+  const onSubmit: SubmitHandler<Inputs> = (data: {
+    username: string;
+    password: string;
+  }) => {
+    dispatch(userDataHandler(data));
+    toast.success("User created.please login with same Username and password");
+    navigate("/");
   };
+
+  React.useEffect(() => {
+    if (userData) return navigate("/signin");
+  }, []);
 
   return (
     <Container
@@ -49,7 +60,7 @@ function Signup() {
         }}
       >
         <Typography component="h1" variant="h5">
-          Sign in
+          Sign up
         </Typography>
         <Box
           component="form"
@@ -95,7 +106,7 @@ function Signup() {
             variant="contained"
             sx={{ mt: 3, mb: 2 }}
           >
-            Sign In
+            Sign Up
           </Button>
         </Box>
       </Box>

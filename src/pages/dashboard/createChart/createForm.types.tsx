@@ -20,5 +20,16 @@ export type chartDataTypes = {
   legendPosition: string;
   title: string;
   series: string;
-  axis: string
+  axis: string;
+};
+
+export type onSubmitTypes = {
+  type: string;
+  series: string;
+  axis: string;
+  direction: string;
+  color: string;
+  legend: string;
+  legendPosition: string;
+  title: string;
 };

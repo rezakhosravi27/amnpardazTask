@@ -6,9 +6,10 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { FormHelperText } from "@mui/material";
-import { useAppDispatch } from "../../../services/redux/hooks";
+import { useAppDispatch, useAppSelector } from "../../../services/redux/hooks";
 import { loggedInHandler } from "../../../services/redux/features/users";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 type Inputs = {
   username: string;
@@ -16,6 +17,7 @@ type Inputs = {
 };
 
 function Signin() {
+  const userData = useAppSelector((state) => state.users.userData);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const {
@@ -24,9 +26,20 @@ function Signin() {
     formState: { errors },
   } = useForm<Inputs>();
 
-  const onSubmit: SubmitHandler<Inputs> = () => {
-    dispatch(loggedInHandler(true));
-    navigate("/dashboard");
+  const onSubmit: SubmitHandler<Inputs> = (data: {
+    username: string;
+    password: string;
+  }) => {
+    if (
+      data.username == userData.username &&
+      data.password == userData.password
+    ) {
+      dispatch(loggedInHandler(true));
+      navigate("/dashboard");
+      return toast.success(`Welcome ${userData.username}`);
+    }
+
+    return toast.error("Username or password not correct");
   };
 
   return (

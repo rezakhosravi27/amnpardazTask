@@ -5,13 +5,27 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import { db } from "../../../data/data";
 import { chartDataHandler } from "../../../services/redux/features/charts";
 import { useAppDispatch, useAppSelector } from "../../../services/redux/hooks";
-import { InputsTypes, chartDataTypes } from "./createForm.types";
+import { InputsTypes, chartDataTypes, onSubmitTypes } from "./createForm.types";
 import { v4 as uuid } from "uuid";
 import { OtherOptions } from "./OtherOptions";
 import { GeneralOptions } from "./GeneralOptions";
 import { useParams } from "react-router-dom";
 import { editChartHandler } from "../../../services/redux/features/charts";
 import { toast } from "react-toastify";
+
+const getAxisDataFromKey = (
+  db: any,
+  keys: { axis: string; series: string }
+) => {
+  const chartCategory = db.map((items: any) => {
+    return items[keys.axis];
+  });
+  const chartSeries = db.map((items: any) => {
+    return items[keys.series];
+  });
+
+  return { chartCategory, chartSeries };
+};
 
 export const CreateForm = () => {
   const dispatch = useAppDispatch();
@@ -21,12 +35,11 @@ export const CreateForm = () => {
   const {
     register,
     handleSubmit,
-    watch,
     reset,
     formState: { errors },
   } = useForm<InputsTypes>();
 
-  const onSubmit: SubmitHandler<InputsTypes> = (data) => {
+  const onSubmit: SubmitHandler<InputsTypes> = (data: onSubmitTypes) => {
     const {
       type,
       series,
@@ -38,14 +51,13 @@ export const CreateForm = () => {
       title,
     } = data;
 
-    const chartCategory = db.map((items: any) => {
-      return items[axis];
+    // Get name series and axis for get this key data from db
+    const { chartCategory, chartSeries } = getAxisDataFromKey(db, {
+      axis,
+      series,
     });
 
-    const chartSeries = db.map((items: any) => {
-      return items[series];
-    });
-
+    // Chart data for save to redux
     const chartData: chartDataTypes = {
       id: uuid(),
       type,
@@ -73,7 +85,7 @@ export const CreateForm = () => {
 
   return (
     <Container maxWidth="md">
-      <Paper sx={{ p: 3 }}>
+      <Paper sx={{ p: 3, mt: 7 }}>
         <Typography variant="h4" color="GrayText">
           Create Chart
         </Typography>
