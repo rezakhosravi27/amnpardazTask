@@ -5,13 +5,13 @@ import type { RootState } from "../store";
 // Define a type for the slice state
 interface UserState {
   isLoggedIn: boolean;
-  userData: { username: string; password: string };
+  userData: { username: string | null; password: string | null };
 }
 
 // Define the initial state using that type
 const initialState: UserState = {
   isLoggedIn: false,
-  userData: { username: "", password: "" },
+  userData: { username: null, password: null },
 };
 
 export const usersSlice = createSlice({

@@ -33,11 +33,11 @@ function Signup() {
   }) => {
     dispatch(userDataHandler(data));
     toast.success("User created.please login with same Username and password");
-    navigate("/");
+    return navigate("/");
   };
 
   React.useEffect(() => {
-    if (userData) return navigate("/signin");
+    if (userData.username && userData.password) return navigate("/signin");
   }, []);
 
   return (

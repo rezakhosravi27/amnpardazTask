@@ -1,4 +1,4 @@
-import React from "react";
+import { useState } from "react";
 import InputLabel from "@mui/material/InputLabel";
 import TextField from "@mui/material/TextField";
 import Divider from "@mui/material/Divider";
@@ -10,7 +10,7 @@ import { db } from "../../../data/data";
 import { generateData } from "./generateData";
 
 export const GeneralOptions = ({ errors, register, findChart }: any) => {
-  const [type, setType] = React.useState("");
+  const [chartType, setChartType] = useState<string | undefined>(" ");
   const { axis, series } = generateData(db);
 
   return (
@@ -37,6 +37,7 @@ export const GeneralOptions = ({ errors, register, findChart }: any) => {
             </InputLabel>
             <Select
               defaultValue={findChart?.type}
+              value={chartType}
               error={errors["type"] && true}
               labelId="demo-simple-select-label"
               id="demo-simple-select"
@@ -45,7 +46,7 @@ export const GeneralOptions = ({ errors, register, findChart }: any) => {
                 required: "This field must be required",
               })}
               onChange={(event: SelectChangeEvent) =>
-                setType(event.target.value)
+                setChartType(event.target.value)
               }
             >
               <MenuItem value="bar">Bar</MenuItem>
@@ -111,7 +112,7 @@ export const GeneralOptions = ({ errors, register, findChart }: any) => {
           </FormControl>
         </Grid>
         <Grid item xs={6}>
-          {type === "bar" && (
+          {chartType === "bar" && (
             <FormControl fullWidth>
               <InputLabel
                 id="demo-simple-select-label"

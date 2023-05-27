@@ -18,6 +18,7 @@ type Inputs = {
 
 function Signin() {
   const userData = useAppSelector((state) => state.users.userData);
+  console.log("userdata", userData);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const {
@@ -61,7 +62,7 @@ function Signin() {
           width: { xs: "60vw", md: "25vw" },
         }}
       >
-        <Typography component="h1" variant="h5">
+        <Typography data-testid="sign-in" component="h1" variant="h5">
           Sign in
         </Typography>
         <Box
