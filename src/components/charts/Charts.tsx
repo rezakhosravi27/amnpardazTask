@@ -46,7 +46,6 @@ export const Charts = ({ data }: any) => {
       position: data.legendPosition,
       horizontalAlign: "left",
       fontWeight: "bold",
-      showForSingleSeries: true,
     },
     labels: data.chartCategory,
     plotOptions: {

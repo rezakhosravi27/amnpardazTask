@@ -17,7 +17,7 @@ export const OtherOptions = React.memo(({ register, findChart }: any) => {
           <FormControl fullWidth>
             <InputLabel id="demo-simple-select-label">Legend</InputLabel>
             <Select
-              defaultValue={findChart.legend}
+              defaultValue={findChart?.legend ? findChart?.legend : "show"}
               labelId="demo-simple-select-label"
               id="demo-simple-select"
               label="Legend"
@@ -34,7 +34,9 @@ export const OtherOptions = React.memo(({ register, findChart }: any) => {
               Legend Position
             </InputLabel>
             <Select
-              defaultValue={findChart.legendPosition}
+              defaultValue={
+                findChart?.legendPosition ? findChart?.legendPosition : "right"
+              }
               labelId="demo-simple-select-label"
               id="demo-simple-select"
               label="Legend Position"
@@ -51,7 +53,9 @@ export const OtherOptions = React.memo(({ register, findChart }: any) => {
           <TextField
             label="Color"
             value={color}
-            onChange={(event) => setColor(event.target.value)}
+            onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
+              setColor(event.target.value)
+            }
             fullWidth
             InputProps={{
               startAdornment: (
@@ -61,7 +65,9 @@ export const OtherOptions = React.memo(({ register, findChart }: any) => {
                     value={color}
                     type="color"
                     sx={{ width: "2vw" }}
-                    onChange={(event) => setColor(event.target.value)}
+                    onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
+                      setColor(event.target.value)
+                    }
                   />
                 </InputAdornment>
               ),

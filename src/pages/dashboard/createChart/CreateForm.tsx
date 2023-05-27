@@ -38,11 +38,11 @@ export const CreateForm = () => {
       title,
     } = data;
 
-    const chartCategory = db.map((items: any, index: number) => {
+    const chartCategory = db.map((items: any) => {
       return items[axis];
     });
 
-    const chartSeries = db.map((items: any, index: number) => {
+    const chartSeries = db.map((items: any) => {
       return items[series];
     });
 
