@@ -70,6 +70,7 @@ export const DND = (props: any) => {
   };
 
   const onLayoutChange = (layout: any) => {
+    console.log("change layout", layout);
     props.onLayoutChange(layout);
   };
 
