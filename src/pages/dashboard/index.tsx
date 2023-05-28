@@ -1,6 +1,6 @@
 import ResponsiveDrawer from "../../components/responsiveDrawer/ResponsiveDrawer";
 import Grid from "@mui/material/Grid";
-import { DND } from "../../components/DND/DND";
+import DND from "../../components/DND/DND";
 import { useAppSelector } from "../../services/redux/hooks";
 import Typography from "@mui/material/Typography";
 

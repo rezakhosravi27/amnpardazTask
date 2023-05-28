@@ -18,7 +18,6 @@ type Inputs = {
 
 function Signin() {
   const userData = useAppSelector((state) => state.users.userData);
-  console.log("userdata", userData);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const {
@@ -117,4 +116,4 @@ function Signin() {
   );
 }
 
-export default React.memo(Signin);
+export default Signin;

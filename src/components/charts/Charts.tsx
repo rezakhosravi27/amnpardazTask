@@ -1,8 +1,8 @@
 import Chart from "react-apexcharts";
+import { ChartsProps } from "./charts.types";
 
-export const Charts = ({ data }: any) => {
+export const Charts = ({ data }: ChartsProps) => {
   const options = {
-    chart: {},
     theme: {
       mode: "dark",
     },

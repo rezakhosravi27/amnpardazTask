@@ -6,9 +6,12 @@ export interface chartStateObject {
   direction: string;
   axis: string;
   series: string;
+  legend: string;
+  legendPosition: string;
+  title: string;
+  color: string;
 }
 
 export interface ChartState {
   chartData: chartStateObject[];
-  layout: { x: number; y: number; w: number; h: number; i: string }[];
 }

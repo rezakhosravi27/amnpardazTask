@@ -1,4 +1,4 @@
-import React from "react";
+import * as React from "react";
 import { useAppSelector } from "../../services/redux/hooks";
 import Signin from "../auth/signin/Signin";
 

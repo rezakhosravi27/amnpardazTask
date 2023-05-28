@@ -1,7 +1,7 @@
 export type ChartDataTypes = {
   id: string;
-  chartCategory: string[];
-  chartSeries: number[];
+  chartCategory: (string | number)[];
+  chartSeries: (string | number)[];
   color: string;
   direction: string;
   axis: string;
@@ -11,3 +11,5 @@ export type ChartDataTypes = {
   title: string;
   type: string;
 };
+
+export type LayoutTypes = [];

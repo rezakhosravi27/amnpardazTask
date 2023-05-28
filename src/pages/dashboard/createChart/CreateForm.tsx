@@ -17,7 +17,6 @@ import { GeneralOptions } from "./GeneralOptions";
 import { useParams } from "react-router-dom";
 import { editChartHandler } from "../../../services/redux/features/charts";
 import { toast } from "react-toastify";
-import { chartStateObject } from "../../../services/redux/features/charts.types";
 import { dataTypes } from "../../../data/data.types";
 
 const getAxisDataFromKey = (
@@ -40,9 +39,7 @@ export const CreateForm = () => {
   const dispatch = useAppDispatch();
   const params = useParams();
   const chartData = useAppSelector((state) => state.charts.chartData);
-  const findChart = chartData.find(
-    (chart: chartStateObject) => chart.id == params.id
-  );
+  const findChart = chartData.find((chart) => chart.id == params.id);
   const {
     register,
     handleSubmit,

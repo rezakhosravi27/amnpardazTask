@@ -6,8 +6,9 @@ import MenuItem from "@mui/material/MenuItem";
 import InputLabel from "@mui/material/InputLabel";
 import { Input } from "@mui/material";
 import InputAdornment from "@mui/material/InputAdornment";
+import { OtherOptionsProps } from "./otherOptions.types";
 
-export const OtherOptions = ({ register, findChart }: any) => {
+export const OtherOptions = ({ register, findChart }: OtherOptionsProps) => {
   const [color, setColor] = React.useState<
     string | React.ChangeEvent<HTMLInputElement>
   >("#2E93fA");

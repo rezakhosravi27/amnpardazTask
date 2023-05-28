@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import * as React from "react";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
@@ -38,7 +39,7 @@ function Signup() {
 
   React.useEffect(() => {
     if (userData.username && userData.password) return navigate("/signin");
-  }, []);
+  }, [navigate, userData.password, userData.username]);
 
   return (
     <Container
@@ -114,4 +115,4 @@ function Signup() {
   );
 }
 
-export default React.memo(Signup);
+export default Signup;

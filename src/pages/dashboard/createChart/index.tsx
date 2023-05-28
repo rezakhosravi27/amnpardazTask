@@ -1,5 +1,4 @@
 import ResponsiveDrawer from "../../../components/responsiveDrawer/ResponsiveDrawer";
-import { Outlet } from "react-router-dom";
 import { CreateForm } from "./CreateForm";
 
 const CreateChart = () => {

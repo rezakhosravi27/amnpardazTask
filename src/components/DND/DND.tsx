@@ -1,3 +1,4 @@
+/* eslint-disable react-refresh/only-export-components */
 import { Grid, Paper, Stack } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
@@ -6,60 +7,65 @@ import { Charts } from "../charts/Charts";
 import { useAppSelector, useAppDispatch } from "../../services/redux/hooks";
 import { deleteChartHandler } from "../../services/redux/features/charts";
 import { Responsive, WidthProvider } from "react-grid-layout";
-import { ChartDataTypes } from "./DND.types";
+import { LayoutTypes } from "./DND.types";
 const ResponsiveGridLayout = WidthProvider(Responsive);
 
-export const DND = (props: any) => {
+const DND = (props: {
+  isDraggable?: boolean;
+  isResizable?: boolean;
+  items?: number;
+  rowHeight?: number;
+  onLayoutChange?: (layout: LayoutTypes) => void;
+  cols?: number;
+}) => {
   const dispatch = useAppDispatch();
-  const chartData: ChartDataTypes = useAppSelector(
-    (state) => state.charts.chartData
-  );
+  const chartData = useAppSelector((state) => state.charts.chartData);
 
-  console.log(chartData);
-
-  const deleteHandler = (id: any) => {
+  const deleteHandler = (id: string) => {
     dispatch(deleteChartHandler(id));
   };
 
   const generateDOM = () => {
     // Generate items with properties from the layout, rather than pass the layout directly
     const layout = generateLayout();
-    return layout.map((l) => {
-      return (
-        <div key={l.i} data-grid={l}>
-          {chartData.map((chart) => {
-            return (
-              chart.id == l.i && (
-                <Paper sx={{ height: "100%", p: 1 }}>
-                  <div style={{ height: "90%", width: "100%" }}>
-                    <Charts data={chart} />
-                  </div>
-                  <Stack
-                    spacing={2}
-                    alignItems="center"
-                    direction="row"
-                    sx={{ height: "10%" }}
-                  >
-                    <DeleteIcon
-                      fontSize="small"
-                      onClick={() => deleteHandler(chart.id)}
-                      color="error"
-                      style={{ cursor: "pointer" }}
-                    />
-                    <Link
-                      to={`/dashboard/editChart/${chart.id}`}
-                      style={{ color: "inherit" }}
+    return layout.map(
+      (l: { x: number; y: number; w: number; h: number; i: string }) => {
+        return (
+          <div key={l.i} data-grid={l}>
+            {chartData.map((chart) => {
+              return (
+                chart.id == l.i && (
+                  <Paper sx={{ height: "100%", p: 1 }}>
+                    <div style={{ height: "90%", width: "100%" }}>
+                      <Charts data={chart} />
+                    </div>
+                    <Stack
+                      spacing={2}
+                      alignItems="center"
+                      direction="row"
+                      sx={{ height: "10%" }}
                     >
-                      <EditIcon color="info" />
-                    </Link>
-                  </Stack>
-                </Paper>
-              )
-            );
-          })}
-        </div>
-      );
-    });
+                      <DeleteIcon
+                        fontSize="small"
+                        onClick={() => deleteHandler(chart.id)}
+                        color="error"
+                        style={{ cursor: "pointer" }}
+                      />
+                      <Link
+                        to={`/dashboard/editChart/${chart.id}`}
+                        style={{ color: "inherit" }}
+                      >
+                        <EditIcon color="info" />
+                      </Link>
+                    </Stack>
+                  </Paper>
+                )
+              );
+            })}
+          </div>
+        );
+      }
+    );
   };
   const generateLayout = () => {
     const p = chartData || []; //props;
@@ -74,8 +80,8 @@ export const DND = (props: any) => {
     });
   };
 
-  const onLayoutChange = (layout: any) => {
-    props.onLayoutChange(layout);
+  const onLayoutChange = (layout: LayoutTypes) => {
+    props.onLayoutChange?.(layout);
   };
 
   return (
@@ -96,12 +102,4 @@ export const DND = (props: any) => {
   );
 };
 
-DND.defaultProps = {
-  isDraggable: true,
-  isResizable: true,
-  items: 20,
-  rowHeight: 30,
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
-  onLayoutChange: function () {},
-  cols: 12,
-};
+export default DND;

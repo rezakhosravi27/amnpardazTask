@@ -1,12 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
 import type { RootState } from "../store";
+import { UserState } from "./users.types";
 
-// Define a type for the slice state
-interface UserState {
-  isLoggedIn: boolean;
-  userData: { username: string | null; password: string | null };
-}
 
 // Define the initial state using that type
 const initialState: UserState = {
