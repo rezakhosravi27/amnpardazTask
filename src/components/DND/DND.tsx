@@ -4,8 +4,12 @@ import EditIcon from "@mui/icons-material/Edit";
 import { Link } from "react-router-dom";
 import { Charts } from "../charts/Charts";
 import { useAppSelector, useAppDispatch } from "../../services/redux/hooks";
-import { deleteChartHandler } from "../../services/redux/features/charts";
+import {
+  deleteChartHandler,
+  layoutHandler,
+} from "../../services/redux/features/charts";
 import { Responsive, WidthProvider } from "react-grid-layout";
+import { useEffect } from "react";
 const ResponsiveGridLayout = WidthProvider(Responsive);
 
 export const DND = (props: any) => {

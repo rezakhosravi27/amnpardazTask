@@ -37,7 +37,6 @@ export const GeneralOptions = ({ errors, register, findChart }: any) => {
             </InputLabel>
             <Select
               defaultValue={findChart?.type}
-              value={chartType}
               error={errors["type"] && true}
               labelId="demo-simple-select-label"
               id="demo-simple-select"

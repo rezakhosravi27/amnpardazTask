@@ -13,11 +13,13 @@ interface ChartState {
     axis: string;
     series: string;
   }[];
+  layout: any;
 }
 
 // Define the initial state using that type
 const initialState: ChartState = {
   chartData: [],
+  layout: [],
 };
 
 export const chartsSlice = createSlice({
@@ -38,6 +40,9 @@ export const chartsSlice = createSlice({
       }>
     ) => {
       state.chartData = [...state.chartData, action.payload];
+    },
+    layoutHandler: (state, action: PayloadAction<any>) => {
+      state.layout = action.payload;
     },
     deleteChartHandler: (state, action: PayloadAction<any>) => {
       state.chartData = state.chartData.filter(
@@ -60,14 +65,17 @@ export const chartsSlice = createSlice({
         (chart) => chart.id == action.payload.id
       );
       const updateChart = state.chartData.splice(findChart, 1, action.payload);
-      console.log("update chart", updateChart);
       state.chartData = state.chartData.filter((chart) => chart);
     },
   },
 });
 
-export const { chartDataHandler, deleteChartHandler, editChartHandler } =
-  chartsSlice.actions;
+export const {
+  chartDataHandler,
+  deleteChartHandler,
+  editChartHandler,
+  layoutHandler,
+} = chartsSlice.actions;
 
 // Other code such as selectors can use the imported `RootState` type
 export const selectChartData = (state: RootState) => state.charts.chartData;
