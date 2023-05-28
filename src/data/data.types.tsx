@@ -1,4 +1,4 @@
-export type dataTypes = {
+export type dataTypesObject = {
   id: number;
   title: string;
   price: number;
@@ -8,4 +8,6 @@ export type dataTypes = {
   brand: string;
   category: string;
   date: string;
-}[];
+}
+
+export type dataTypes = dataTypesObject[];
