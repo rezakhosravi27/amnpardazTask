@@ -4,19 +4,18 @@ import EditIcon from "@mui/icons-material/Edit";
 import { Link } from "react-router-dom";
 import { Charts } from "../charts/Charts";
 import { useAppSelector, useAppDispatch } from "../../services/redux/hooks";
-import {
-  deleteChartHandler,
-  layoutHandler,
-} from "../../services/redux/features/charts";
+import { deleteChartHandler } from "../../services/redux/features/charts";
 import { Responsive, WidthProvider } from "react-grid-layout";
-import { useEffect } from "react";
+import { ChartDataTypes } from "./DND.types";
 const ResponsiveGridLayout = WidthProvider(Responsive);
 
 export const DND = (props: any) => {
   const dispatch = useAppDispatch();
-  const chartData = useAppSelector((state) => state.charts.chartData);
-  const layout = useAppSelector((state) => state.charts.layout);
-  console.log("layout redux", layout);
+  const chartData: ChartDataTypes = useAppSelector(
+    (state) => state.charts.chartData
+  );
+
+  console.log(chartData);
 
   const deleteHandler = (id: any) => {
     dispatch(deleteChartHandler(id));
@@ -24,7 +23,7 @@ export const DND = (props: any) => {
 
   const generateDOM = () => {
     // Generate items with properties from the layout, rather than pass the layout directly
-    // const layout = generateLayout();
+    const layout = generateLayout();
     return layout.map((l) => {
       return (
         <div key={l.i} data-grid={l}>
@@ -76,7 +75,6 @@ export const DND = (props: any) => {
   };
 
   const onLayoutChange = (layout: any) => {
-    dispatch(layoutHandler(layout));
     props.onLayoutChange(layout);
   };
 

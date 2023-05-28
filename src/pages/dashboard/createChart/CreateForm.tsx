@@ -5,26 +5,32 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import { db } from "../../../data/data";
 import { chartDataHandler } from "../../../services/redux/features/charts";
 import { useAppDispatch, useAppSelector } from "../../../services/redux/hooks";
-import { InputsTypes, chartDataTypes, onSubmitTypes } from "./createForm.types";
+import {
+  InputsTypes,
+  chartDataTypes,
+  onSubmitTypes,
+  objectTypes,
+} from "./createForm.types";
 import { v4 as uuid } from "uuid";
 import { OtherOptions } from "./OtherOptions";
 import { GeneralOptions } from "./GeneralOptions";
 import { useParams } from "react-router-dom";
-import {
-  editChartHandler,
-  layoutHandler,
-} from "../../../services/redux/features/charts";
+import { editChartHandler } from "../../../services/redux/features/charts";
 import { toast } from "react-toastify";
+import { chartStateObject } from "../../../services/redux/features/charts.types";
+import { dataTypes } from "../../../data/data.types";
 
 const getAxisDataFromKey = (
-  db: any,
+  db: dataTypes,
   keys: { axis: string; series: string }
 ) => {
-  const chartCategory = db.map((items: any) => {
-    return items[keys.axis];
+  const axis: string = keys.axis;
+  const series: string = keys.series;
+  const chartCategory: (string | number)[] = db.map((items) => {
+    return items[axis as keyof objectTypes];
   });
-  const chartSeries = db.map((items: any) => {
-    return items[keys.series];
+  const chartSeries: (string | number)[] = db.map((items) => {
+    return items[series as keyof objectTypes];
   });
 
   return { chartCategory, chartSeries };
@@ -34,8 +40,9 @@ export const CreateForm = () => {
   const dispatch = useAppDispatch();
   const params = useParams();
   const chartData = useAppSelector((state) => state.charts.chartData);
-  const layout = useAppSelector((state) => state.charts.layout);
-  const findChart = chartData.find((chart: any) => chart.id == params.id);
+  const findChart = chartData.find(
+    (chart: chartStateObject) => chart.id == params.id
+  );
   const {
     register,
     handleSubmit,
@@ -77,22 +84,12 @@ export const CreateForm = () => {
       series: data.series,
     };
 
-    // Initial layout data for each chart
-    const layoutData = {
-      x: Math.floor(Math.random() * 7) > 1 ? 6 : 0,
-      y: 0,
-      w: 6,
-      h: 1.5,
-      i: id,
-    };
-
     // if findChart exists means edit page render and dispatch is edit data
     if (findChart) {
       dispatch(editChartHandler(chartData));
       toast.success("Chart update");
     } else {
       dispatch(chartDataHandler(chartData));
-      dispatch(layoutHandler([...layout, layoutData]));
       toast.success("Chart create");
       reset();
     }
