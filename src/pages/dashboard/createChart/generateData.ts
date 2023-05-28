@@ -1,7 +1,7 @@
 import { dataTypes, dataTypesObject } from "../../../data/data.types";
 
 export const generateData = (data: dataTypes) => {
-  const axis = [
+  const axis: string[] = [
     ...new Set(
       data.flatMap((obj: dataTypesObject) =>
         Object.entries(obj)
@@ -10,7 +10,7 @@ export const generateData = (data: dataTypes) => {
       )
     ),
   ];
-  const series = [
+  const series: string[] = [
     ...new Set(
       data.flatMap((obj: dataTypesObject) =>
         Object.entries(obj)
