@@ -15,6 +15,8 @@ const ResponsiveGridLayout = WidthProvider(Responsive);
 export const DND = (props: any) => {
   const dispatch = useAppDispatch();
   const chartData = useAppSelector((state) => state.charts.chartData);
+  const layout = useAppSelector((state) => state.charts.layout);
+  console.log("layout redux", layout);
 
   const deleteHandler = (id: any) => {
     dispatch(deleteChartHandler(id));
@@ -22,7 +24,7 @@ export const DND = (props: any) => {
 
   const generateDOM = () => {
     // Generate items with properties from the layout, rather than pass the layout directly
-    const layout = generateLayout();
+    // const layout = generateLayout();
     return layout.map((l) => {
       return (
         <div key={l.i} data-grid={l}>
@@ -74,6 +76,7 @@ export const DND = (props: any) => {
   };
 
   const onLayoutChange = (layout: any) => {
+    dispatch(layoutHandler(layout));
     props.onLayoutChange(layout);
   };
 

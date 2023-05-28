@@ -10,7 +10,10 @@ import { v4 as uuid } from "uuid";
 import { OtherOptions } from "./OtherOptions";
 import { GeneralOptions } from "./GeneralOptions";
 import { useParams } from "react-router-dom";
-import { editChartHandler } from "../../../services/redux/features/charts";
+import {
+  editChartHandler,
+  layoutHandler,
+} from "../../../services/redux/features/charts";
 import { toast } from "react-toastify";
 
 const getAxisDataFromKey = (
@@ -31,6 +34,7 @@ export const CreateForm = () => {
   const dispatch = useAppDispatch();
   const params = useParams();
   const chartData = useAppSelector((state) => state.charts.chartData);
+  const layout = useAppSelector((state) => state.charts.layout);
   const findChart = chartData.find((chart: any) => chart.id == params.id);
   const {
     register,
@@ -40,6 +44,7 @@ export const CreateForm = () => {
   } = useForm<InputsTypes>();
 
   const onSubmit: SubmitHandler<InputsTypes> = (data: onSubmitTypes) => {
+    const id = uuid();
     const {
       type,
       series,
@@ -59,7 +64,7 @@ export const CreateForm = () => {
 
     // Chart data for save to redux
     const chartData: chartDataTypes = {
-      id: uuid(),
+      id,
       type,
       chartSeries,
       chartCategory,
@@ -72,12 +77,22 @@ export const CreateForm = () => {
       series: data.series,
     };
 
+    // Initial layout data for each chart
+    const layoutData = {
+      x: Math.floor(Math.random() * 7) > 1 ? 6 : 0,
+      y: 0,
+      w: 6,
+      h: 1.5,
+      i: id,
+    };
+
     // if findChart exists means edit page render and dispatch is edit data
     if (findChart) {
       dispatch(editChartHandler(chartData));
       toast.success("Chart update");
     } else {
       dispatch(chartDataHandler(chartData));
+      dispatch(layoutHandler([...layout, layoutData]));
       toast.success("Chart create");
       reset();
     }
