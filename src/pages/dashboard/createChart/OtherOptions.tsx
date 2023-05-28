@@ -1,4 +1,4 @@
-import React from "react";
+import * as React from "react";
 import { Divider, TextField, Grid } from "@mui/material";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
@@ -8,7 +8,10 @@ import { Input } from "@mui/material";
 import InputAdornment from "@mui/material/InputAdornment";
 
 export const OtherOptions = ({ register, findChart }: any) => {
-  const [color, setColor] = React.useState<string>("#2E93fA");
+  const [color, setColor] = React.useState<
+    string | React.ChangeEvent<HTMLInputElement>
+  >("#2E93fA");
+
   return (
     <React.Fragment>
       <Divider sx={{ my: 3 }}>Other Options</Divider>
