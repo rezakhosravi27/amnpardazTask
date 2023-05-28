@@ -8,8 +8,13 @@ import Select, { SelectChangeEvent } from "@mui/material/Select";
 import Grid from "@mui/material/Grid";
 import { db } from "../../../data/data";
 import { generateData } from "./generateData";
+import { GeneralOptionsProps } from "./generalOptions.types";
 
-export const GeneralOptions = ({ errors, register, findChart }: any) => {
+export const GeneralOptions = ({
+  errors,
+  register,
+  findChart,
+}: GeneralOptionsProps) => {
   const [chartType, setChartType] = useState<string | undefined>(" ");
   const { axis, series } = generateData(db);
 
@@ -19,7 +24,7 @@ export const GeneralOptions = ({ errors, register, findChart }: any) => {
       <Grid container spacing={2}>
         <Grid item xs={6}>
           <TextField
-            defaultValue={findChart?.title}
+            defaultValue={findChart?.title || ""}
             error={errors["title"] && true}
             fullWidth
             type="text"
@@ -29,17 +34,15 @@ export const GeneralOptions = ({ errors, register, findChart }: any) => {
         </Grid>
         <Grid item xs={6}>
           <FormControl fullWidth>
-            <InputLabel
-              id="demo-simple-select-label"
-              error={errors["type"] && true}
-            >
+            <InputLabel id="Type" error={errors["type"] && true}>
               Type
             </InputLabel>
             <Select
-              defaultValue={findChart?.type}
+              inputProps={{ "data-testid": "Type" }}
+              defaultValue={findChart?.type || ""}
               error={errors["type"] && true}
-              labelId="demo-simple-select-label"
-              id="demo-simple-select"
+              labelId="Type"
+              id="Type"
               label="Type"
               {...register("type", {
                 required: "This field must be required",
@@ -56,23 +59,21 @@ export const GeneralOptions = ({ errors, register, findChart }: any) => {
         </Grid>
         <Grid item xs={6}>
           <FormControl fullWidth>
-            <InputLabel
-              id="demo-simple-select-label"
-              error={errors["axis"] && true}
-            >
+            <InputLabel id="Axis" error={errors["axis"] && true}>
               Axis
             </InputLabel>
             <Select
-              defaultValue={findChart?.axis}
+              aria-labelledby="Axis"
+              defaultValue={findChart?.axis || ""}
               error={errors["axis"] && true}
-              labelId="demo-simple-select-label"
+              labelId="Axis"
               id="demo-simple-select"
               label="Axis"
               {...register("axis", {
                 required: "This field must be required",
               })}
             >
-              {axis.map((keys: any) =>
+              {axis.map((keys) =>
                 keys == "id" ? null : (
                   <MenuItem key={keys} value={keys}>
                     {keys}
@@ -84,15 +85,13 @@ export const GeneralOptions = ({ errors, register, findChart }: any) => {
         </Grid>
         <Grid item xs={6}>
           <FormControl fullWidth>
-            <InputLabel
-              id="demo-simple-select-label"
-              error={errors["series"] && true}
-            >
+            <InputLabel id="Series" error={errors["series"] && true}>
               Series
             </InputLabel>
             <Select
-              defaultValue={findChart?.series}
-              labelId="demo-simple-select-label"
+              aria-labelledby="Series"
+              defaultValue={findChart?.series || ""}
+              labelId="Series"
               id="demo-simple-select"
               label="Series"
               {...register("series", {
@@ -100,7 +99,7 @@ export const GeneralOptions = ({ errors, register, findChart }: any) => {
               })}
               error={errors["series"] && true}
             >
-              {series.map((keys: any) =>
+              {series.map((keys) =>
                 keys == "id" ? null : (
                   <MenuItem key={keys} value={keys}>
                     {keys}
@@ -113,15 +112,12 @@ export const GeneralOptions = ({ errors, register, findChart }: any) => {
         <Grid item xs={6}>
           {chartType === "bar" && (
             <FormControl fullWidth>
-              <InputLabel
-                id="demo-simple-select-label"
-                error={errors["direction"] && true}
-              >
+              <InputLabel id="Direction" error={errors["direction"] && true}>
                 Direction
               </InputLabel>
               <Select
                 defaultValue={findChart?.direction}
-                labelId="demo-simple-select-label"
+                labelId="Direction"
                 id="demo-simple-select"
                 label="Direction"
                 {...register("direction", {

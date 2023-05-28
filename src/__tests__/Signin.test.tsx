@@ -3,6 +3,8 @@ import Signin from "../pages/auth/signin/Signin";
 import { BrowserRouter } from "react-router-dom";
 import "@testing-library/jest-dom";
 
+// Use BrowserRouter as container because Signin component have useNavigate hook
+
 describe("signin", () => {
   test("rendered correctly", () => {
     render(

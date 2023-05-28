@@ -67,6 +67,7 @@ const DND = (props: {
       }
     );
   };
+
   const generateLayout = () => {
     const p = chartData || []; //props;
     return p.map((item, i) => {
