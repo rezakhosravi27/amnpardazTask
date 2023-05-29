@@ -21,6 +21,7 @@ export const OtherOptions = ({ register, findChart }: OtherOptionsProps) => {
           <FormControl fullWidth>
             <InputLabel id="demo-simple-select-label">Legend</InputLabel>
             <Select
+              inputProps={{ "data-testid": "Legend" }}
               defaultValue={findChart?.legend ? findChart?.legend : "show"}
               labelId="demo-simple-select-label"
               id="demo-simple-select"
@@ -38,6 +39,7 @@ export const OtherOptions = ({ register, findChart }: OtherOptionsProps) => {
               Legend Position
             </InputLabel>
             <Select
+              inputProps={{ "data-testid": "Legend Position" }}
               defaultValue={
                 findChart?.legendPosition ? findChart?.legendPosition : "right"
               }
@@ -55,6 +57,7 @@ export const OtherOptions = ({ register, findChart }: OtherOptionsProps) => {
         </Grid>
         <Grid item xs={6}>
           <TextField
+            inputProps={{ "data-testid": "Color" }}
             label="Color"
             value={color}
             onChange={(event: React.ChangeEvent<HTMLInputElement>) =>

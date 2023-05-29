@@ -63,6 +63,7 @@ export const GeneralOptions = ({
               Axis
             </InputLabel>
             <Select
+              inputProps={{ "data-testid": "Axis" }}
               aria-labelledby="Axis"
               defaultValue={findChart?.axis || ""}
               error={errors["axis"] && true}
@@ -89,6 +90,7 @@ export const GeneralOptions = ({
               Series
             </InputLabel>
             <Select
+              inputProps={{ "data-testid": "Series" }}
               aria-labelledby="Series"
               defaultValue={findChart?.series || ""}
               labelId="Series"
@@ -116,6 +118,7 @@ export const GeneralOptions = ({
                 Direction
               </InputLabel>
               <Select
+                inputProps={{ "data-testid": "Direction" }}
                 defaultValue={findChart?.direction}
                 labelId="Direction"
                 id="demo-simple-select"
