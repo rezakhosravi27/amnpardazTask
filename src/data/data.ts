@@ -1,6 +1,6 @@
 import { dataTypes } from "./data.types";
 
-export const db: dataTypes = [
+export const db: any = [
   {
     id: 1,
     title: "iPhone 9",
@@ -11,6 +11,7 @@ export const db: dataTypes = [
     brand: "Apple",
     category: "smartphones",
     date: "2022/11/2",
+    country: "AD"
   },
   {
     id: 2,

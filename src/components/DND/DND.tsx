@@ -3,12 +3,12 @@ import { Grid, Paper, Stack } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import { Link } from "react-router-dom";
-import { Charts } from "../charts/Charts";
 import { useAppSelector, useAppDispatch } from "../../services/redux/hooks";
 import { deleteChartHandler } from "../../services/redux/features/charts";
 import { Responsive, WidthProvider } from "react-grid-layout";
 import { LayoutTypes } from "./DND.types";
 const ResponsiveGridLayout = WidthProvider(Responsive);
+import { LineChart } from "../nivoCharts/lineChart/LineChart";
 
 const DND = (props: {
   isDraggable?: boolean;
@@ -37,7 +37,8 @@ const DND = (props: {
                 chart.id == l.i && (
                   <Paper sx={{ height: "100%", p: 1 }}>
                     <div style={{ height: "90%", width: "100%" }}>
-                      <Charts data={chart} />
+                      <LineChart chartData={chart} />
+                      {/* <Charts data={chart} /> */}
                     </div>
                     <Stack
                       spacing={2}
@@ -89,6 +90,7 @@ const DND = (props: {
   return (
     <Grid spacing={3} container sx={{ position: "relative" }}>
       <ResponsiveGridLayout
+        onLayoutChange={onLayoutChange}
         className="layout"
         autoSize
         layouts={{ lg: generateLayout() }}
