@@ -24,11 +24,14 @@ describe("responsive drawer", () => {
 
     const colorElement = screen.getByTestId("Color");
     expect(colorElement).toBeInTheDocument();
+    expect(colorElement).toHaveValue("#2E93fA");
 
     const legendElement = screen.getByTestId("Legend");
     expect(legendElement).toBeInTheDocument();
+    expect(legendElement).toHaveValue("show");
 
     const legendPositionElement = screen.getByTestId("Legend Position");
     expect(legendPositionElement).toBeInTheDocument();
+    expect(legendPositionElement).toHaveValue("up");
   });
 });
