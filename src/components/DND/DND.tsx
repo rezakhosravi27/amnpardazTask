@@ -82,18 +82,19 @@ const DND = (props: {
   };
 
   const onLayoutChange = (layout: LayoutTypes) => {
+    console.log(layout);
     props.onLayoutChange?.(layout);
   };
 
   return (
     <Grid spacing={3} container sx={{ position: "relative" }}>
       <ResponsiveGridLayout
-        onLayoutChange={onLayoutChange}
         className="layout"
         autoSize
-        rowHeight={281}
-        breakpoints={{ lg: 1200, md: 996, sm: 768, xs: 480, xxs: 0 }}
-        cols={{ lg: 12, md: 12, sm: 2, xs: 1, xxs: 1 }}
+        layouts={{ lg: generateLayout() }}
+        rowHeight={260}
+        breakpoints={{ lg: 1356, md: 996, sm: 768, xs: 480, xxs: 0 }}
+        cols={{ lg: 12, md: 12, sm: 6, xs: 1, xxs: 1 }}
         isDraggable={true}
         isResizable={true}
       >
