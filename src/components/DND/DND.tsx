@@ -8,7 +8,10 @@ import { deleteChartHandler } from "../../services/redux/features/charts";
 import { Responsive, WidthProvider } from "react-grid-layout";
 import { LayoutTypes } from "./DND.types";
 const ResponsiveGridLayout = WidthProvider(Responsive);
+import { BarChart } from "../nivoCharts/barChart/BarChart";
 import { LineChart } from "../nivoCharts/lineChart/LineChart";
+import { PieChart } from "../nivoCharts/pieChart/PieChart";
+import Typography from "@mui/material/Typography";
 
 const DND = (props: {
   isDraggable?: boolean;
@@ -36,15 +39,18 @@ const DND = (props: {
               return (
                 chart.id == l.i && (
                   <Paper sx={{ height: "100%", p: 1 }}>
-                    <div style={{ height: "90%", width: "100%" }}>
-                      <LineChart chartData={chart} />
-                      {/* <Charts data={chart} /> */}
+                    <div style={{ height: "80%", width: "100%" }}>
+                      <Typography variant="h6">{chart.title}</Typography>
+                      {chart.type == "bar" && <BarChart chartData={chart} />}
+                      {chart.type == "line" && <LineChart chartData={chart} />}
+                      {chart.type == "pie" && <PieChart chartData={chart} />}
                     </div>
                     <Stack
                       spacing={2}
+                      mt={2}
                       alignItems="center"
                       direction="row"
-                      sx={{ height: "10%" }}
+                      sx={{ height: "20%" }}
                     >
                       <DeleteIcon
                         fontSize="small"
@@ -94,7 +100,7 @@ const DND = (props: {
         className="layout"
         autoSize
         layouts={{ lg: generateLayout() }}
-        rowHeight={260}
+        rowHeight={300}
         breakpoints={{ lg: 1356, md: 996, sm: 768, xs: 480, xxs: 0 }}
         cols={{ lg: 12, md: 12, sm: 6, xs: 1, xxs: 1 }}
         isDraggable={true}

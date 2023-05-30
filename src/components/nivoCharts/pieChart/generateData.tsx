@@ -4,8 +4,9 @@ import { dataTypesObject } from "../../../data/data.types";
 
 export const generateData = (chartData: ChartDataTypes) => {
   const data = db.map((data: dataTypesObject) => ({
-    x: data[chartData.axis as keyof dataTypesObject],
-    y: data[chartData.series as keyof dataTypesObject],
+    id: data[chartData.axis as keyof dataTypesObject],
+    label: data[chartData.axis as keyof dataTypesObject],
+    value: data[chartData.series as keyof dataTypesObject],
   }));
 
   return { data };

@@ -1,13 +1,12 @@
 export type dataTypesObject = {
-  id: number;
-  title: string;
-  price: number;
-  discountPercentage: number;
-  rating: number;
-  stock: number;
-  brand: string;
-  category: string;
-  date: string;
-}
+  country: string;
+  city: string; 
+  "hot dog": number;
+  burger: number;
+  sandwich: number;
+  kebab: number;
+  fries: number;
+  donut: number;
+};
 
 export type dataTypes = dataTypesObject[];

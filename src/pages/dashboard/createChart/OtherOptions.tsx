@@ -69,7 +69,7 @@ export const OtherOptions = ({ register, findChart }: OtherOptionsProps) => {
                 <InputAdornment position="start">
                   <Input
                     {...register("color")}
-                    value={color}
+                    defaultValue={findChart?.color ? findChart?.color : color}
                     type="color"
                     sx={{ width: "2vw" }}
                     onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
