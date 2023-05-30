@@ -5,19 +5,14 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import { db } from "../../../data/data";
 import { chartDataHandler } from "../../../services/redux/features/charts";
 import { useAppDispatch, useAppSelector } from "../../../services/redux/hooks";
-import {
-  InputsTypes,
-  chartDataTypes,
-  onSubmitTypes,
-  objectTypes,
-} from "./createForm.types";
+import { InputsTypes, chartDataTypes, onSubmitTypes } from "./createForm.types";
 import { v4 as uuid } from "uuid";
 import { OtherOptions } from "./OtherOptions";
 import { GeneralOptions } from "./GeneralOptions";
 import { useParams } from "react-router-dom";
 import { editChartHandler } from "../../../services/redux/features/charts";
 import { toast } from "react-toastify";
-import { dataTypes } from "../../../data/data.types";
+import { dataTypes, dataTypesObject } from "../../../data/data.types";
 
 const getAxisDataFromKey = (
   db: dataTypes,
@@ -25,11 +20,13 @@ const getAxisDataFromKey = (
 ) => {
   const axis: string = keys.axis;
   const series: string = keys.series;
-  const chartCategory: (string | number)[] = db.map((items) => {
-    return items[axis as keyof objectTypes];
-  });
-  const chartSeries: (string | number)[] = db.map((items) => {
-    return items[series as keyof objectTypes];
+  const chartCategory: (string | number)[] = db.map(
+    (items: dataTypesObject) => {
+      return items[axis as keyof dataTypesObject];
+    }
+  );
+  const chartSeries: (string | number)[] = db.map((items: dataTypesObject) => {
+    return items[series as keyof dataTypesObject];
   });
 
   return { chartCategory, chartSeries };

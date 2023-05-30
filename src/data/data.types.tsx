@@ -1,6 +1,6 @@
 export type dataTypesObject = {
   country: string;
-  city: string; 
+  city: string;
   "hot dog": number;
   burger: number;
   sandwich: number;

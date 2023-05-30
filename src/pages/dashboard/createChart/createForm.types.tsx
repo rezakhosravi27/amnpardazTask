@@ -35,7 +35,6 @@ export type onSubmitTypes = {
 };
 
 export type objectTypes = {
-  id: number;
   title: string;
   price: number;
   discountPercentage: number;
